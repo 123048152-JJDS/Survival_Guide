@@ -38,6 +38,17 @@ def notas():
         completed=session['completed'],
         xp=session['xp']
     )
+    
+@app.route('/skills')
+def skills():
+    init_state()
+    if 'skills' not in session['unlocked']:
+        return redirect(url_for('notas'))
+    return render_template('skills.html',
+        unlocked=session['unlocked'],
+        completed=session['completed'],
+        xp=session['xp']
+    )
 
 
 @app.route('/unlock/<seccion>', methods=['POST', 'GET'])

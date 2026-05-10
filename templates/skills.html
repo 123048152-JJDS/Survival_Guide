@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% set activate = 'skills'%}
+
+{% block titulo%}Skills a Desbloquear{% endblock %}
+
+{% block contenido %}
+<div class="section-header">
+    <p class="section-tag">ZONA 03</p>
+    <h2 class="section-title">🛠️ Skills a Desbloquear<br/><span>en esta Zona</span></h2>
+</div>
+
+<div class="content-card">
+  <h3>🎯 OBJETIVO GENERAL</h3>
+  <p style="font-size:14px; color:var(--text); line-height:1.7;">
+    Desarrollarás aplicaciones móviles mediante <strong>lenguajes de programación</strong>,
+    entornos de desarrollo, diseño de interfaces de usuario, arquitecturas,
+    patrones de diseño y herramientas de programación móvil.
+  </p>
+</div>
+
+<div class="skills-grid">
+  <div class="skill-card s1">
+    <div class="skill-icon">📱</div>
+    <h4>UNIDAD I</h4>
+    <p>Introducción al desarrollo de apps móviles<br/>
+    <small style="color:var(--muted)">10h teoría · 8h práctica</small></p>
+  </div>
+  <div class="skill-card s2">
+    <div class="skill-icon">🎨</div>
+    <h4>UNIDAD II</h4>
+    <p>Diseño de aplicaciones móviles<br/>
+    <small style="color:var(--muted)">10h teoría · 14h práctica</small></p>
+  </div>
+  <div class="skill-card s3">
+    <div class="skill-icon">💻</div>
+    <h4>UNIDAD III</h4>
+    <p>Programación de aplicaciones móviles<br/>
+    <small style="color:var(--muted)">12h teoría · 24h práctica</small></p>
+  </div>
+  <div class="skill-card s4">
+    <div class="skill-icon">🚀</div>
+    <h4>UNIDAD IV</h4>
+    <p>Publicación de aplicaciones móviles<br/>
+    <small style="color:var(--muted)">4h teoría · 8h práctica</small></p>
+  </div>
+</div>
+
+{% if 'skills' not in completed %}
+<div class="quiz-zone" style="margin-top:1.5rem;">
+  <div id="quiz-content"></div>
+</div>
+{% else %}
+<div class="already-unlocked">✓ ZONA COMPLETADA — XP OBTENIDO</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+{% if 'skills' not in completed %}
+<script>
+  const quizPreguntas = [
+    { q: "¿Cuántas unidades de aprendizaje tiene la materia?", opts: ["2", "3", "4", "5"], correct: 2 },
+    { q: "¿Cuál es la unidad con más horas de práctica?", opts: ["Unidad I (8h)", "Unidad II (14h)", "Unidad III (24h)", "Unidad IV (8h)"], correct: 2 },
+    { q: "¿Qué framework se usa como referencia bibliográfica principal?", opts: ["Flutter", "React Native", "Kotlin", "Swift"], correct: 1 },
+    { q: "¿Cuántas horas de teoría tiene la Unidad I?", opts: ["4h", "8h", "10h", "12h"], correct: 2 },
+    { q: "¿Cuántas horas de práctica tiene la Unidad II?", opts: ["8h", "10h", "14h", "24h"], correct: 2 },
+    { q: "¿Qué tema cubre la Unidad IV?", opts: ["Diseño de apps", "Programación móvil", "Publicación de apps", "Introducción móvil"], correct: 2 },
+    { q: "¿Cuántas horas de teoría tiene la Unidad III?", opts: ["4h", "8h", "10h", "12h"], correct: 3 },
+    { q: "¿Qué tema cubre la Unidad II?", opts: ["Introducción móvil", "Diseño de apps", "Programación móvil", "Publicación"], correct: 1 },
+    { q: "¿Cuántas horas de práctica tiene la Unidad IV?", opts: ["4h", "8h", "14h", "24h"], correct: 1 },
+    { q: "¿Cuál es el total de horas prácticas del cuatrimestre?", opts: ["36h", "45h", "54h", "62h"], correct: 2 }
+  ];
+  const commitment = "Comprendo los objetivos de la materia y me comprometo a desarrollar las competencias requeridas.";
+  initQuiz('skills', quizPreguntas, commitment);
+</script>
+{% endif %}
+{% endblock %}
