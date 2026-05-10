@@ -17,5 +17,16 @@ def index():
     session.clear()
     return render_template('index.html')
 
+@app.route('/reglas')
+def reglas():
+    init_state()
+    if 'reglas' not in session['unlocked']:
+        return redirect(url_for('index'))
+    return render_template('reglas.html',
+        unlocked=session['unlocked'],
+        completed=session['completed'],
+        xp=session['xp']
+    )
+
 if __name__ == '__main__':
     app.run(debug=True)

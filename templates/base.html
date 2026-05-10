@@ -1,93 +1,106 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Survival Guide – {% block titulo %}{% endblock %}</title>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Survival Guide – {% block titulo %}{% endblock %}</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Share+Tech+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <div id="game-screen">
+      <header class="game-header">
+        <h1>⚡ SURVIVAL GUIDE</h1>
+        <div class="progress-bar-wrap">
+          <div
+            class="progress-bar-fill"
+            style="width: {{ (xp / 400 * 100)|int }}%"
+          ></div>
+        </div>
+        <div class="xp-badge">XP: {{ xp }} / 400</div>
+      </header>
 
-<div id="game-screen">
-  <header class="game-header">
-    <h1>⚡ SURVIVAL GUIDE</h1>
-    <div class="progress-bar-wrap">
-      <div class="progress-bar-fill" style="width: {{ (xp / 400 * 100)|int }}%"></div>
+      <div class="game-layout">
+        <nav class="sidebar">
+          <p class="sidebar-title">// MAPA</p>
+
+          {% if 'reglas' in unlocked %}
+          <a
+            href="{{ url_for('reglas') }}"
+            class="nav-item unlocked {% if active == 'reglas' %}active{% endif %}"
+          >
+            <span class="nav-icon">🏛️</span>
+            <span class="nav-label">Cámara<br />de las Reglas</span>
+            {% if 'reglas' in completed %}<span class="check-icon">✓</span>{%
+            endif %}
+          </a>
+          {% else %}
+          <div class="nav-item locked">
+            <span class="nav-icon">🏛️</span>
+            <span class="nav-label">Cámara<br />de las Reglas</span>
+            <span class="lock-icon">🔒</span>
+          </div>
+          {% endif %} {% if 'notas' in unlocked %}
+          <a
+            href="{{ url_for('notas') }}"
+            class="nav-item unlocked {% if active == 'notas' %}active{% endif %}"
+          >
+            <span class="nav-icon">🔮</span>
+            <span class="nav-label">Oráculo<br />de las Notas</span>
+            {% if 'notas' in completed %}<span class="check-icon">✓</span>{%
+            endif %}
+          </a>
+          {% else %}
+          <div class="nav-item locked">
+            <span class="nav-icon">🔮</span>
+            <span class="nav-label">Oráculo<br />de las Notas</span>
+            <span class="lock-icon">🔒</span>
+          </div>
+          {% endif %} {% if 'skills' in unlocked %}
+          <a
+            href="{{ url_for('skills') }}"
+            class="nav-item unlocked {% if active == 'skills' %}active{% endif %}"
+          >
+            <span class="nav-icon">⚔️</span>
+            <span class="nav-label">Skills a<br />Desbloquear</span>
+            {% if 'skills' in completed %}<span class="check-icon">✓</span>{%
+            endif %}
+          </a>
+          {% else %}
+          <div class="nav-item locked">
+            <span class="nav-icon">⚔️</span>
+            <span class="nav-label">Skills a<br />Desbloquear</span>
+            <span class="lock-icon">🔒</span>
+          </div>
+          {% endif %} {% if 'timeline' in unlocked %}
+          <a
+            href="{{ url_for('timeline') }}"
+            class="nav-item unlocked {% if active == 'timeline' %}active{% endif %}"
+          >
+            <span class="nav-icon">📅</span>
+            <span class="nav-label">Línea del<br />Tiempo</span>
+            {% if 'timeline' in completed %}<span class="check-icon">✓</span>{%
+            endif %}
+          </a>
+          {% else %}
+          <div class="nav-item locked">
+            <span class="nav-icon">📅</span>
+            <span class="nav-label">Línea del<br />Tiempo</span>
+            <span class="lock-icon">🔒</span>
+          </div>
+          {% endif %}
+        </nav>
+
+        <main class="main-content">{% block contenido %}{% endblock %}</main>
+      </div>
     </div>
-    <div class="xp-badge">XP: {{ xp }} / 400</div>
-  </header>
 
-  <div class="game-layout">
-
-    <nav class="sidebar">
-      <p class="sidebar-title">// MAPA</p>
-
-      {% if 'reglas' in unlocked %}
-        <a href="{{ url_for('reglas') }}" class="nav-item unlocked {% if active == 'reglas' %}active{% endif %}">
-          <span class="nav-icon">🏛️</span>
-          <span class="nav-label">Cámara<br/>de las Reglas</span>
-          {% if 'reglas' in completed %}<span class="check-icon">✓</span>{% endif %}
-        </a>
-      {% else %}
-        <div class="nav-item locked">
-          <span class="nav-icon">🏛️</span>
-          <span class="nav-label">Cámara<br/>de las Reglas</span>
-          <span class="lock-icon">🔒</span>
-        </div>
-      {% endif %}
-
-      {% if 'notas' in unlocked %}
-        <a href="{{ url_for('notas') }}" class="nav-item unlocked {% if active == 'notas' %}active{% endif %}">
-          <span class="nav-icon">🔮</span>
-          <span class="nav-label">Oráculo<br/>de las Notas</span>
-          {% if 'notas' in completed %}<span class="check-icon">✓</span>{% endif %}
-        </a>
-      {% else %}
-        <div class="nav-item locked">
-          <span class="nav-icon">🔮</span>
-          <span class="nav-label">Oráculo<br/>de las Notas</span>
-          <span class="lock-icon">🔒</span>
-        </div>
-      {% endif %}
-
-      {% if 'skills' in unlocked %}
-        <a href="{{ url_for('skills') }}" class="nav-item unlocked {% if active == 'skills' %}active{% endif %}">
-          <span class="nav-icon">⚔️</span>
-          <span class="nav-label">Skills a<br/>Desbloquear</span>
-          {% if 'skills' in completed %}<span class="check-icon">✓</span>{% endif %}
-        </a>
-      {% else %}
-        <div class="nav-item locked">
-          <span class="nav-icon">⚔️</span>
-          <span class="nav-label">Skills a<br/>Desbloquear</span>
-          <span class="lock-icon">🔒</span>
-        </div>
-      {% endif %}
-
-      {% if 'timeline' in unlocked %}
-        <a href="{{ url_for('timeline') }}" class="nav-item unlocked {% if active == 'timeline' %}active{% endif %}">
-          <span class="nav-icon">📅</span>
-          <span class="nav-label">Línea del<br/>Tiempo</span>
-          {% if 'timeline' in completed %}<span class="check-icon">✓</span>{% endif %}
-        </a>
-      {% else %}
-        <div class="nav-item locked">
-          <span class="nav-icon">📅</span>
-          <span class="nav-label">Línea del<br/>Tiempo</span>
-          <span class="lock-icon">🔒</span>
-        </div>
-      {% endif %}
-
-    </nav>
-
-    <main class="main-content">
-      {% block contenido %}{% endblock %}
-    </main>
-
-  </div>
-</div>
-
-<script src="{{ url_for('static', filename='game.js') }}"></script>
-</body>
+    <script src="{{ url_for('static', filename='game.js') }}"></script>
+  </body>
 </html>

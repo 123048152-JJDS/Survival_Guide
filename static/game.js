@@ -1,18 +1,22 @@
 let quizState = null;
 
-/**
- * initQuiz - inicializa el quiz de una sección
- * @param {string}  seccion    - nombre de la sección (ej: 'reglas')
- * @param {Array}   preguntas  - arreglo de objetos {q, opts, correct}
- * @param {string}  commitment - texto del check de compromiso
- * @param {boolean} isLast     - true si es la última sección
- */
 function initQuiz(seccion, preguntas, commitment, isLast = false) {
-  quizState = { current: 0, correct: 0, done: false, preguntas, commitment, seccion, isLast };
+  const seleccionadas = preguntas
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 3);
+
+  quizState = {
+    current: 0,
+    correct: 0,
+    done: false,
+    preguntas: seleccionadas,
+    commitment,
+    seccion,
+    isLast
+  };
   renderQuiz(quizState);
 }
 
-/* ── RENDERIZAR QUIZ ── */
 function renderQuiz(state) {
   const container = document.getElementById('quiz-content');
 
@@ -41,7 +45,9 @@ function renderQuiz(state) {
     if (paso) {
       container.innerHTML = `
         <h3>// QUIZ DE DESBLOQUEO</h3>
-        <p class="quiz-progress" style="color:var(--success)">✓ ¡${state.correct}/${state.preguntas.length} correctas! Has pasado el quiz.</p>
+        <p class="quiz-progress" style="color:var(--success)">
+          ✓ ¡${state.correct}/${state.preguntas.length} correctas! Has pasado el quiz.
+        </p>
         <div class="commitment-zone" style="display:flex">
           <label>
             <input type="checkbox" id="cb-commit" onchange="toggleBtn()"/>
@@ -55,7 +61,12 @@ function renderQuiz(state) {
     } else {
       container.innerHTML = `
         <h3>// QUIZ DE DESBLOQUEO</h3>
-        <p class="quiz-progress" style="color:var(--danger)">✗ Solo ${state.correct}/${state.preguntas.length} correctas. Necesitas al menos 2.</p>
+        <p class="quiz-progress" style="color:var(--danger)">
+          ✗ Solo ${state.correct}/${state.preguntas.length} correctas. Necesitas al menos 2.
+        </p>
+        <p style="font-size:12px; color:var(--muted); margin-top:0.5rem;">
+          Se seleccionarán 3 preguntas nuevas al reintentar.
+        </p>
         <button class="btn-next" style="display:block" onclick="reintentar()">[ REINTENTAR ]</button>
       `;
     }
@@ -92,10 +103,13 @@ function siguiente() {
 }
 
 function reintentar() {
-  quizState.current = 0;
-  quizState.correct = 0;
-  quizState.done = false;
-  renderQuiz(quizState);
+
+    initQuiz(
+    quizState.seccion,
+    quizState._todas,
+    quizState.commitment,
+    quizState.isLast
+  );
 }
 
 function toggleBtn() {
@@ -120,7 +134,9 @@ function showVictory() {
   victory.innerHTML = `
     <div style="font-size:64px;margin-bottom:1rem;">🏆</div>
     <h2 style="font-family:'Press Start 2P',monospace;font-size:20px;color:#00e5ff;margin-bottom:1rem;">¡FELICIDADES!</h2>
-    <p style="font-family:'Press Start 2P',monospace;font-size:10px;color:#ff6b35;margin-bottom:2rem;line-height:2;">SURVIVAL GUIDE COMPLETADO<br/>400 XP OBTENIDOS</p>
+    <p style="font-family:'Press Start 2P',monospace;font-size:10px;color:#ff6b35;margin-bottom:2rem;line-height:2;">
+      SURVIVAL GUIDE COMPLETADO<br/>400 XP OBTENIDOS
+    </p>
     <p style="font-size:14px;color:#94a3b8;max-width:400px;line-height:1.8;">
       Ya conoces las reglas, el sistema de evaluación, los objetivos y todas las fechas clave.<br/>
       ¡Ahora sí estás listo para sobrevivir Programación Móvil!
