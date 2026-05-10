@@ -1,5 +1,9 @@
-{% extends "base.html" %} {% set active = 'reglas' %} {% block titulo %}Cámara
-de las Reglas{% endblock %} {% block contenido %}
+{% extends "base.html" %}
+{% set active = 'reglas' %}
+
+{% block titulo %}Cámara de las Reglas{% endblock %}
+
+{% block contenido %}
 <div class="section-header">
   <p class="section-tag">ZONA 01</p>
   <h2 class="section-title">🏛️ La Cámara<br /><span>de las Reglas</span></h2>
@@ -105,90 +109,28 @@ de las Reglas{% endblock %} {% block contenido %}
 <div class="quiz-zone">
   <div id="quiz-content"></div>
 </div>
-
-<script>
-  const SECCION = "reglas";
-  const quizPreguntas = [
-    {
-      q: "¿Qué porcentaje mínimo de asistencia necesitas para evaluación parcial?",
-      opts: ["70%", "75%", "80%", "90%"],
-      correct: 2,
-    },
-    {
-      q: "¿Cuántos minutos de tolerancia se permiten al inicio de clase?",
-      opts: ["5 minutos", "10 minutos", "15 minutos", "20 minutos"],
-      correct: 1,
-    },
-    {
-      q: "¿Qué sucede si llegas después de la tolerancia?",
-      opts: [
-        "No puedes entrar",
-        "Asistencia normal",
-        "Entras pero sin asistencia",
-        "Justificas al día siguiente",
-      ],
-      correct: 2,
-    },
-    {
-      q: "¿En cuántas horas debes justificar una falta?",
-      opts: ["12 horas", "24 horas", "48 horas", "72 horas"],
-      correct: 1,
-    },
-    {
-      q: "¿Dónde se entregan las tareas y trabajos?",
-      opts: ["Por correo", "Google Classroom", "En físico", "WhatsApp"],
-      correct: 1,
-    },
-    {
-      q: "¿Qué documentos se aceptan para justificar faltas?",
-      opts: [
-        "Cualquier carta",
-        "Solo recetas médicas",
-        "Recetas médicas y citatorios jurídicos",
-        "Justificante del tutor",
-      ],
-      correct: 2,
-    },
-    {
-      q: "¿Qué pasa si copias un examen?",
-      opts: [
-        "Pierdes 10 puntos",
-        "Repruebas el examen",
-        "Repruebas la asignatura",
-        "Solo una advertencia",
-      ],
-      correct: 2,
-    },
-    {
-      q: "¿Cuántas incidencias de indisciplina quitan derecho a examen?",
-      opts: ["1", "2", "3", "5"],
-      correct: 2,
-    },
-    {
-      q: "¿Para qué se puede usar el celular en clase?",
-      opts: [
-        "Para todo",
-        "Solo actividades de clase",
-        "No se puede usar",
-        "Solo para consultar",
-      ],
-      correct: 1,
-    },
-    {
-      q: "¿Qué está prohibido en el salón de clases?",
-      opts: [
-        "Usar laptop",
-        "Hacer preguntas",
-        "Comer y tomar líquidos",
-        "Trabajar en equipo",
-      ],
-      correct: 2,
-    },
-  ];
-  const commitment =
-    "Acepto el reglamento y me comprometo a cumplirlo durante el cuatrimestre.";
-  initQuiz(SECCION, quizPreguntas, commitment);
-</script>
 {% else %}
 <div class="already-unlocked">✓ ZONA COMPLETADA — XP OBTENIDO</div>
-{% endif %} {% endblock %}
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+{% if 'reglas' not in completed %}
+<script>
+  const quizPreguntas = [
+    { q: "¿Qué porcentaje mínimo de asistencia necesitas para evaluación parcial?", opts: ["70%", "75%", "80%", "90%"], correct: 2 },
+    { q: "¿Cuántos minutos de tolerancia se permiten al inicio de clase?", opts: ["5 minutos", "10 minutos", "15 minutos", "20 minutos"], correct: 1 },
+    { q: "¿Qué sucede si llegas después de la tolerancia?", opts: ["No puedes entrar", "Asistencia normal", "Entras pero sin asistencia", "Justificas al día siguiente"], correct: 2 },
+    { q: "¿En cuántas horas debes justificar una falta?", opts: ["12 horas", "24 horas", "48 horas", "72 horas"], correct: 1 },
+    { q: "¿Dónde se entregan las tareas y trabajos?", opts: ["Por correo", "Google Classroom", "En físico", "WhatsApp"], correct: 1 },
+    { q: "¿Qué documentos se aceptan para justificar faltas?", opts: ["Cualquier carta", "Solo recetas médicas", "Recetas médicas y citatorios jurídicos", "Justificante del tutor"], correct: 2 },
+    { q: "¿Qué pasa si copias un examen?", opts: ["Pierdes 10 puntos", "Repruebas el examen", "Repruebas la asignatura", "Solo una advertencia"], correct: 2 },
+    { q: "¿Cuántas incidencias de indisciplina quitan derecho a examen?", opts: ["1", "2", "3", "5"], correct: 2 },
+    { q: "¿Para qué se puede usar el celular en clase?", opts: ["Para todo", "Solo actividades de clase", "No se puede usar", "Solo para consultar"], correct: 1 },
+    { q: "¿Qué está prohibido en el salón de clases?", opts: ["Usar laptop", "Hacer preguntas", "Comer y tomar líquidos", "Trabajar en equipo"], correct: 2 }
+  ];
+  const commitment = "Acepto el reglamento y me comprometo a cumplirlo durante el cuatrimestre.";
+  initQuiz('reglas', quizPreguntas, commitment);
+</script>
+{% endif %}
+{% endblock %}

@@ -594,3 +594,7 @@ body::before {
   .sidebar-title { width: 100%; }
   .nav-item { flex: 1 1 45%; font-size: 10px; }
 }
+
+#game-screen {
+  display: block !important;
+}

@@ -27,6 +27,39 @@ def reglas():
         completed=session['completed'],
         xp=session['xp']
     )
+    
+@app.route('/notas')
+def notas():
+    init_state()
+    if 'notas' not in session['unlocked']:
+        return redirect(url_for('reglas'))
+    return render_template('notas.html',
+        unlocked=session['unlocked'],
+        completed=session['completed'],
+        xp=session['xp']
+    )
+
+
+@app.route('/unlock/<seccion>', methods=['POST', 'GET'])
+def unlock(seccion):
+    init_state()
+    if seccion in SECCIONES:
+        if seccion not in session['completed']:
+            completed = session['completed']
+            completed.append(seccion)
+            session['completed'] = completed
+            session['xp'] = session['xp'] + 100
+
+        idx = SECCIONES.index(seccion)
+        if idx + 1 < len(SECCIONES):
+            siguiente = SECCIONES[idx + 1]
+            unlocked = session['unlocked']
+            if siguiente not in unlocked:
+                unlocked.append(siguiente)
+                session['unlocked'] = unlocked
+            return redirect(url_for(siguiente))
+
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run(debug=True)

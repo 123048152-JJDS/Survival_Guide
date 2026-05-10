@@ -10,6 +10,7 @@ function initQuiz(seccion, preguntas, commitment, isLast = false) {
     correct: 0,
     done: false,
     preguntas: seleccionadas,
+    _todas: preguntas, 
     commitment,
     seccion,
     isLast

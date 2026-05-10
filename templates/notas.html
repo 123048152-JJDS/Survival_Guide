@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% set active = 'notas' %}
+
+{% block titulo %}Oráculo de las Notas{% endblock %}
+
+{% block contenido %}
+<div class="section-header">
+  <p class="section-tag">ZONA 02</p>
+  <h2 class="section-title">🔮 El Oráculo<br/><span>de las Notas</span></h2>
+</div>
+
+<div class="content-card">
+  <h3>📊 SISTEMA DE EVALUACIÓN</h3>
+  <table class="eval-table">
+    <thead>
+      <tr>
+        <th>EVIDENCIA</th>
+        <th>1er PARCIAL</th>
+        <th>2do PARCIAL</th>
+        <th>3er PARCIAL</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="badge badge-cyan">Conocimiento</span></td><td>40%</td><td>40%</td><td>10%</td></tr>
+      <tr><td><span class="badge badge-orange">Desempeño</span></td><td>20%</td><td>20%</td><td>10%</td></tr>
+      <tr><td><span class="badge badge-purple">Producto</span></td><td>30%</td><td>30%</td><td>30%</td></tr>
+      <tr><td><span class="badge badge-cyan">Proyecto Integrador</span></td><td>10%</td><td>10%</td><td>50%</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="content-card">
+  <h3>📅 FECHAS DE PARCIALES</h3>
+  <div class="rule-item"><span class="rule-num">1P</span><span>Primer Parcial: <strong>02 de Junio 2026</strong></span></div>
+  <div class="rule-item"><span class="rule-num">2P</span><span>Segundo Parcial: <strong>07 de Julio 2026</strong></span></div>
+  <div class="rule-item"><span class="rule-num">3P</span><span>Tercer Parcial: <strong>11 de Agosto 2026</strong></span></div>
+  <div class="rule-item"><span class="rule-num">FIN</span><span>Examen Final: <strong>17 de Agosto 2026</strong></span></div>
+</div>
+
+{% if 'notas' not in completed %}
+<div class="quiz-zone">
+  <div id="quiz-content"></div>
+</div>
+{% else %}
+<div class="already-unlocked">✓ ZONA COMPLETADA — XP OBTENIDO</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+{% if 'notas' not in completed %}
+<script>
+  const quizPreguntas = [
+    { q: "¿Qué porcentaje representa la Evidencia de Conocimiento en el 1er Parcial?", opts: ["20%", "30%", "40%", "50%"], correct: 2 },
+    { q: "¿Cuándo es el Primer Parcial?", opts: ["02 de Junio", "07 de Julio", "11 de Agosto", "17 de Agosto"], correct: 0 },
+    { q: "¿Qué peso tiene el Proyecto Integrador en el 3er Parcial?", opts: ["10%", "20%", "30%", "50%"], correct: 3 },
+    { q: "¿Qué porcentaje es la Evidencia de Desempeño en el 2do Parcial?", opts: ["10%", "20%", "30%", "40%"], correct: 1 },
+    { q: "¿Cuándo es el Examen Final?", opts: ["11 de Agosto", "14 de Agosto", "17 de Agosto", "20 de Agosto"], correct: 2 },
+    { q: "¿Qué evidencia vale igual en los 3 parciales?", opts: ["Conocimiento", "Desempeño", "Producto", "Proyecto Integrador"], correct: 2 },
+    { q: "¿Cuándo es el Segundo Parcial?", opts: ["02 de Junio", "07 de Julio", "11 de Agosto", "17 de Agosto"], correct: 1 },
+    { q: "¿Qué porcentaje vale el Proyecto Integrador en el 1er Parcial?", opts: ["5%", "10%", "20%", "30%"], correct: 1 },
+    { q: "¿Qué porcentaje es la Evidencia de Conocimiento en el 3er Parcial?", opts: ["10%", "20%", "30%", "40%"], correct: 0 },
+    { q: "¿Cuándo es el Tercer Parcial?", opts: ["02 de Junio", "07 de Julio", "11 de Agosto", "17 de Agosto"], correct: 2 }
+  ];
+  const commitment = "Entendí el sistema de evaluación y me comprometo a entregar todas mis evidencias a tiempo.";
+  initQuiz('notas', quizPreguntas, commitment);
+</script>
+{% endif %}
+{% endblock %}
