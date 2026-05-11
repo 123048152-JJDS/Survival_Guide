@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% set active = 'timeline' %}
+
+{% block titulo %}Línea del Tiempo{% endblock %}
+
+{% block contenido %}
+<div class="section-header">
+  <p class="section-tag">ZONA 04</p>
+  <h2 class="section-title">📅 La Línea<br/><span>del Tiempo</span></h2>
+</div>
+
+<div class="content-card">
+  <h3>🗓 FECHAS CLAVE · MAYO–AGOSTO 2026</h3>
+  <div class="timeline" style="margin-top:1rem;">
+    <div class="timeline-item">
+      <div class="timeline-dot past"></div>
+      <div class="timeline-date">05 MAY 2026</div>
+      <div class="timeline-label">Inicio del Cuatrimestre</div>
+      <div class="timeline-sub">Comienzo del periodo Mayo–Agosto 2026</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot past"></div>
+      <div class="timeline-date">09 MAY 2026</div>
+      <div class="timeline-label">Último día reinscripción extemporánea</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot current"></div>
+      <div class="timeline-date">29 MAY 2026</div>
+      <div class="timeline-label">Fecha límite entrega de Plan y Guía</div>
+      <div class="timeline-sub">+ Acceso a plataforma</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot future"></div>
+      <div class="timeline-date">02 JUN 2026</div>
+      <div class="timeline-label">🔴 1er Parcial</div>
+      <div class="timeline-sub">Evaluación y captura de calificación</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot future"></div>
+      <div class="timeline-date">07 JUL 2026</div>
+      <div class="timeline-label">🔴 2do Parcial</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot future"></div>
+      <div class="timeline-date">20–24 JUL 2026</div>
+      <div class="timeline-label">🌿 Receso Académico</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot future"></div>
+      <div class="timeline-date">11 AGO 2026</div>
+      <div class="timeline-label">🔴 3er Parcial</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot future"></div>
+      <div class="timeline-date">17 AGO 2026</div>
+      <div class="timeline-label">🏁 Examen Final</div>
+      <div class="timeline-sub">Fin del cuatrimestre</div>
+    </div>
+  </div>
+</div>
+
+{% if 'timeline' not in completed %}
+<div class="quiz-zone">
+  <div id="quiz-content"></div>
+</div>
+{% else %}
+<div class="already-unlocked">✓ SURVIVAL GUIDE COMPLETADO 🏆</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+{% if 'timeline' not in completed %}
+<script>
+  const quizPreguntas = [
+    { q: "¿Cuándo inicia el Receso Académico?", opts: ["13 de Julio", "20 de Julio", "27 de Julio", "03 de Agosto"], correct: 1 },
+    { q: "¿Cuándo es el Examen Final?", opts: ["11 de Agosto", "14 de Agosto", "17 de Agosto", "20 de Agosto"], correct: 2 },
+    { q: "¿Cuándo termina la reinscripción extemporánea?", opts: ["01 de Mayo", "05 de Mayo", "09 de Mayo", "15 de Mayo"], correct: 2 },
+    { q: "¿Cuándo inicia el cuatrimestre?", opts: ["01 de Mayo", "05 de Mayo", "10 de Mayo", "15 de Mayo"], correct: 1 },
+    { q: "¿Cuándo es el 1er Parcial?", opts: ["02 de Junio", "07 de Julio", "11 de Agosto", "17 de Agosto"], correct: 0 },
+    { q: "¿Cuándo es el 2do Parcial?", opts: ["02 de Junio", "07 de Julio", "11 de Agosto", "17 de Agosto"], correct: 1 },
+    { q: "¿Cuándo es el 3er Parcial?", opts: ["02 de Junio", "07 de Julio", "11 de Agosto", "17 de Agosto"], correct: 2 },
+    { q: "¿Cuándo es la fecha límite de entrega del Plan y Guía?", opts: ["15 de Mayo", "22 de Mayo", "29 de Mayo", "05 de Junio"], correct: 2 },
+    { q: "¿Cuántos días dura el Receso Académico?", opts: ["3 días", "4 días", "5 días", "7 días"], correct: 2 },
+    { q: "¿En qué mes termina el cuatrimestre?", opts: ["Julio", "Agosto", "Septiembre", "Octubre"], correct: 1 }
+  ];
+  const commitment = "Tengo claras todas las fechas clave del cuatrimestre y me comprometo a cumplirlas.";
+  initQuiz('timeline', quizPreguntas, commitment, true);
+</script>
+{% endif %}
+{% endblock %}

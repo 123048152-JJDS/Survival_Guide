@@ -50,6 +50,18 @@ def skills():
         xp=session['xp']
     )
 
+@app.route('/timeline')
+def timeline():
+    init_state()
+    if 'timeline' not in session['unlocked']:
+        return redirect(url_for('skills'))
+    return render_template('timeline.html',
+        unlocked=session['unlocked'],
+        completed=session['completed'],
+        xp=session['xp']
+    )
+    
+    
 
 @app.route('/unlock/<seccion>', methods=['POST', 'GET'])
 def unlock(seccion):
